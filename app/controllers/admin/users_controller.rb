@@ -1,4 +1,5 @@
 class Admin::UsersController < AdminController
+  before_action :set_user, only: [:changestatus, :changerole, :validates_role]
 	before_action :validates_role, only: :changestatus
 
   def index
@@ -6,7 +7,6 @@ class Admin::UsersController < AdminController
   end
 
   def changestatus
-  	@user=User.find(params[:id])
   	if @user.status=="inactive" 
   	   @user.status="active"
     else
@@ -19,7 +19,6 @@ class Admin::UsersController < AdminController
   end
 
   def changerole
-  	@user=User.find(params[:id])
   	if @user.ismanager?
   	   @user.ismanager="false"
     else
@@ -34,11 +33,13 @@ class Admin::UsersController < AdminController
   private
 
     def validates_role
-    	@user=User.find(params[:id])
     	unless @user.user?
     	 @users=User.all
   	     render "index"
   	    end
+    end
+     def set_user
+      @user= User.find(params[:id])
     end
 
 end
