@@ -18,7 +18,8 @@
         <td><%= client.name %></td>
         <td><%= client.location %></td>
         <td><%= client.email %></td>
-        <td><%= link_to 'Show', client_path(client) %></td>
+        <td><%= link_to 'Show', client_path(client) %>  <% if current_user.admin? ||  current_user.ismanager? %>|<%= link_to 'Edit', edit_client_path(client) %> <% end %> <% if current_user.admin? %> | <%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %>  <% end %></td>
+        
       </tr>
     <% end %>
   </tbody>
