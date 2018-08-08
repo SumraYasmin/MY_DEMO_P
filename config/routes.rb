@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 namespace :admin do
 	resources :users do
 		member do
-			get 'change-status'
+			get 'changestatus'
 		end
 	end
 end
