@@ -6,6 +6,7 @@ namespace :admin do
 	resources :users do
 		member do
 			get 'changestatus'
+			get 'changerole'
 		end
 	end
 end

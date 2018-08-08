@@ -1,6 +1,24 @@
+<div class="container">
+<h2>Users</h2>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+    	<% @users.each do |user| %>
+      <tr> 	
+        <td><%=user.name %></td>
+        <td><%=user.email %></td>
+        <td><%=user.status %><% unless user.admin? %>|<%=link_to "change", changestatus_admin_user_path(user)%><%end%></td>
+        <td><%=user.ismanager %><% if user.ismanager? %>|<%=link_to "downgrade", changerole_admin_user_path(user)%><%else%>|<%=link_to "upgrade", changerole_admin_user_path(user)%><%end%></td>
+      </tr>
+         <%end %>
+      </tbody>
+  </table>
 
-<% @users.each do |article| %>
-<%= article.name %><br>
-<%end %>
-
-
+</div>
