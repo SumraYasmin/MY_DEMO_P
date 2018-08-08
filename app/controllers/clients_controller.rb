@@ -1,5 +1,8 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :authorized_user, except: [:show, :index]
+  before_action :authorized_user_for_destroy, only: [:destroy]
+
 
   def index
     @clients = Client.all
@@ -54,6 +57,21 @@ class ClientsController < ApplicationController
     def set_client
       @client = Client.find(params[:id])
     end
+
+    def authorized_user
+      unless current_user.ismanager?
+      @clients = Client.all
+      render 'index'
+      end
+    end
+
+    def authorized_user_for_destroy
+      unless current_user.admin?
+      @clients = Client.all
+      render 'index'
+      end
+    end
+ 
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
